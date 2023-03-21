@@ -20,4 +20,12 @@ def create_app(config=config_dict['dev']):
     api.add_namespace(order_namespace)
     api.add_namespace(auth_namespace, path='/auth')
 
+    @app.shell_context_processor
+    def make_shell_context():
+        return {
+            'db': db,
+            'User': User,
+            'Order': Order
+        }
+
     return app
