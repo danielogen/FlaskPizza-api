@@ -2,13 +2,13 @@ from ..utils import db
 from enum import Enum
 from datetime import datetime
 
-class Sizes:
+class Sizes(Enum):
     SMALL = 'small'
     MEDIUM = 'medium'
     LARGE = 'large'
     EXTRA_LARGE = 'extra_large'
 
-class OrderStatus:
+class OrderStatus(Enum):
     PENDING = 'pending'
     IN_TRANSIT = 'in_transit'
     DELIVERED = 'delivered'
