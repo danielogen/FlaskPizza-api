@@ -9,9 +9,9 @@ class User(db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
     password_hash = db.Column(db.Text(), nullable=False)
     is_staff = db.Column(db.Boolean, default=False)
-    is_active = db.Column(db.Boolean, default=False)
+    is_active = db.Column(db.Boolean, default=True)
     date_created = db.Column(db.DateTime(), default=datetime.utcnow)
-    orders = db.relationship('Order', backref='customer', lazy=True)
+    orders = db.relationship('Order', backref='user', lazy=True)
 
     def __repr__(self):
         return f'<User {self.username}>'
