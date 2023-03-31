@@ -1,6 +1,7 @@
 from flask_restx import Resource,Namespace,fields
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..models.orders import Order
+from ..models.users import User
 from http import HTTPStatus
 
 order_namespace=Namespace('order', description='Namespace for orders')
@@ -27,12 +28,28 @@ class OrderGetCreate(Resource):
         orders=Order.query.all()
         return orders, HTTPStatus.OK
     
+    @order_namespace.expect(order_model)
+    @order_namespace.marshal_with(order_model)
     @jwt_required
     def post(self):
         """
             Place an order
         """
-        pass
+
+        username=get_jwt_identity()
+        current_user = User.query.filter_by(username=username.first())
+        
+        data=order_namespace.payload
+        new_order = Order(
+            size=data['size'],
+            quantity=data['quantity']
+            flavour = data['flavour']
+        )
+
+        new_order.user=current_user
+        new_order.save()
+
+        return new_order, HTTPStatus.CREATED
 
 @order_namespace.route('/order/<int:order_id>')
 class GetUpdateDelete(Resource):
@@ -41,7 +58,7 @@ class GetUpdateDelete(Resource):
         """
             Retrieve an order by id
         """
-        pass
+        
 
     def put(self, order_id):
         """
