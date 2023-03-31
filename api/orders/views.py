@@ -21,6 +21,9 @@ order_model = order_namespace.model(
 class OrderGetCreate(Resource):
     
     @order_namespace.marshal_with(order_model)
+    @order_namespace.doc(
+        description="Retrieve all orders"
+    )
     def get(self):
         """
             Get all orders
@@ -30,6 +33,9 @@ class OrderGetCreate(Resource):
     
     @order_namespace.expect(order_model)
     @order_namespace.marshal_with(order_model)
+     @order_namespace.doc(
+        description="Place an order"
+    )
     @jwt_required
     def post(self):
         """
@@ -54,11 +60,23 @@ class OrderGetCreate(Resource):
 @order_namespace.route('/order/<int:order_id>')
 class GetUpdateDelete(Resource):
 
+    @order_namespace.marshal_with(order_model)
+    @order_namespace.doc(
+        description="Retrieve an order by ID",
+        params={
+            "order_id":"An ID for a given order"
+        }
+    )
+    @jwt_required
     def get(self, order_id):
         """
             Retrieve an order by id
         """
-        
+        order=Order.get_by_id(order_id)
+
+        return order, HTTPStatus.OK
+
+
 
     def put(self, order_id):
         """
