@@ -76,9 +76,16 @@ class GetUpdateDelete(Resource):
         order=Order.get_by_id(order_id)
 
         return order, HTTPStatus.OK
-
-
-
+    
+    @order_namespace.expect(order_model)
+    @order_namespace.marshal_with(order_model)
+    @order_namespace.doc(
+        description="Update an order given an order ID",
+        params={
+            "order_id":"An ID for a given order"
+        }
+    )
+    @jwt_required()
     def put(self, order_id):
         """
             Update an order by id
@@ -95,12 +102,25 @@ class GetUpdateDelete(Resource):
 
         return order_to_update, HTTPStatus.OK
     
+  
+    @jwt_required()
+    @order_namespace.marshal_with(order_model)
+    @order_namespace.doc(
+        description="Delete an order given an order ID",
+        params={
+            "order_id":"An ID for a given order"
+        }
+    )
+    def delete(self,order_id):
 
-    def delete(self, order_id):
         """
-            Delete an order by id
+            Delete an order with id
         """
-        pass
+        order_to_delete=Order.get_by_id(order_id)
+
+        order_to_delete.delete()
+
+        return order_to_delete ,HTTPStatus.NO_CONTENT
 
 @order_namespace.route('/user/<int:user_id>/order/<int:order_id>')
 class GetSpecificOrderByUser(Resource):
