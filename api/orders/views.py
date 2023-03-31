@@ -33,7 +33,7 @@ class OrderGetCreate(Resource):
     
     @order_namespace.expect(order_model)
     @order_namespace.marshal_with(order_model)
-     @order_namespace.doc(
+    @order_namespace.doc(
         description="Place an order"
     )
     @jwt_required
@@ -92,11 +92,18 @@ class GetUpdateDelete(Resource):
 
 @order_namespace.route('/user/<int:user_id>/order/<int:order_id>')
 class GetSpecificOrderByUser(Resource):
+
+    @order_namespace.marshal_with(order_model)
+    @jwt_required
     def get(self, user_id, order_id):
         """
             Get a user's specific order
         """
-        pass
+        user=User.get_by_id(user_id)
+
+        order=Order.get_by_id(order_id).filter_by(user=user).first()
+
+        return order, HTTPStatus.OK
 
 @order_namespace.route('/user/<int:user_id>/orders')
 class UserOrders(Resource):
