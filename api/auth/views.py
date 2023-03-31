@@ -86,6 +86,7 @@ class Login(Resource):
             }
 
             return response, HTTPStatus.OK
+        raise BadRequest("Invalid Username or Password")
         
 @auth_namespace.route('/refresh')
 class Refresh(Resource):
