@@ -2,6 +2,7 @@ from flask_restx import Namespace,Resource, fields
 from flask import request
 from ..models.users import User
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.exceptions import Conflict,BadRequest
 from http import HTTPStatus
 from flask_jwt_extended import create_access_token, create_refresh_token,jwt_required,get_jwt_identity
 
@@ -45,15 +46,19 @@ class SignUp(Resource):
             Create a new user account
         """
         data = request.get_json()
-        new_user = User(
-            username=data.get('username'),
-            email=data.get('email'),
-            password_hash=generate_password_hash(data.get('password'))
-        )
+        try:
+            new_user = User(
+                username=data.get('username'),
+                email=data.get('email'),
+                password_hash=generate_password_hash(data.get('password'))
+            )
 
-        new_user.save()
+            new_user.save()
 
-        return new_user, HTTPStatus.CREATED
+            return new_user, HTTPStatus.CREATED
+        except Exception as e:
+            raise Conflict(f"User with email {data.get('email')} exists")
+
 
 
 @auth_namespace.route('/login')
