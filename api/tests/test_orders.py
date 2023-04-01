@@ -16,3 +16,10 @@ class OrderTestCase(unittest.TestCase):
         db.create_all()
     
     def tearDown(self):
+        db.drop_all()
+
+        self.app=None
+
+        self.appctx.pop()
+
+        self.client=None
