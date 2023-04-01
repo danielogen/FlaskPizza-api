@@ -25,6 +25,7 @@ class OrderTestCase(unittest.TestCase):
 
         self.client=None
 
+    
     def test_get_all_orders(self):
 
         token=create_access_token(identity='testuser')
@@ -38,4 +39,27 @@ class OrderTestCase(unittest.TestCase):
         assert response.status_code == 200
 
         assert response.json == []
+
     
+    def test_create_order(self):
+        data={
+            "size":"LARGE",
+            "quantity":3,
+            "flavour":"Test Flavour"
+        }
+
+        token=create_access_token(identity='testuser')
+
+        headers={
+            "Authorization":f"Bearer {token}"
+        }
+
+
+        response=self.client.post('/orders/orders/',json=data,headers=headers)
+
+
+        assert response.status_code == 201
+
+        orders= Order.query.all()
+
+        assert len(orders) == 1
