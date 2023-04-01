@@ -1,9 +1,9 @@
 # Flask Pizza Api
 
-The project demonstrate to use of [Flask]() micro framework for the creation of a an hypethoical Pizza Delivery Service API
+The project demonstrate to use of [Flask](https://flask.palletsprojects.com/en/2.2.x/) micro framework for the creation of a an hypethoical `Pizza Delivery Service API`
 
 ## Features
-- Use Flask with [Flask-RESTX]()
+- Use Flask with [Flask-RESTX](https://flask-restx.readthedocs.io/en/latest/)
 - Database integration with Flask SQLAlchemy
 - Authentication with JWT
 - Enviroment Seperation 
@@ -13,13 +13,13 @@ The project demonstrate to use of [Flask]() micro framework for the creation of 
 - Database Migration
 
 ## Python Packages
-1. Flask
-2. Flask-RESTX
-3. Flask-SQLAlchemy
-4. Flask-Migrate
-5. Flask-JWT-Extended
-6. Python-decouple
-7. Pytest
+1. [Flask](https://flask.palletsprojects.com/en/2.2.x/)
+2. [Flask-RESTX](https://flask-restx.readthedocs.io/en/latest/)
+3. [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/)
+4. [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/)
+5. [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/en/stable/)
+6. [Python-decouple](https://pypi.org/project/python-decouple/)
+7. [Pytest](https://docs.pytest.org/en/7.2.x/)
 
 ## Running the project 
 ### Step 1:
@@ -36,7 +36,7 @@ $ python -m venv env
 $ source env/bin/activate
 ```
 
-### Step3:
+### Step 3:
 Install all the required dependencies
 ```
 $ pip install -r requirements.txt
