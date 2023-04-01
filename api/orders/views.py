@@ -160,6 +160,7 @@ class UserOrders(Resource):
 
 @order_namespace.route('/order/status/<int:order_id>')
 class UpdateOrderStatus(Resource):
+    
     @order_namespace.expect(order_status_model)
     @order_namespace.marshal_with(order_model)
     @order_namespace.doc(
