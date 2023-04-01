@@ -1,7 +1,10 @@
 import unittest
 from .. import create_app
 from ..config.config import config_dict
-from ..utils.db import db
+from ..utils import db
+from ..models.users import User
+from werkzeug.security import generate_password_hash
+
 
 
 class UserTestCase(unittest.TestCase):
@@ -21,5 +24,22 @@ class UserTestCase(unittest.TestCase):
         db.drop_all()
 
         self.appctx.pop()
+
         self.app = None
+        
         self.client = None
+
+    def test_user_registration(self):
+        data = {
+            "username": "testuser",
+            "email":  "testuser@company.com",
+            "password": "password"
+        }
+
+        response = self.client.post('/auth/signup', json=data)
+
+        user = User.query.filter_by(email="testuser@company.com").first()
+
+        assert user.username == "testuser"
+
+        assert response.status_code == 201 
