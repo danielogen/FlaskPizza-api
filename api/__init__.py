@@ -14,6 +14,15 @@ def create_app(config=config_dict['dev']):
 
     app.config.from_object(config)
 
+    authorizations={
+        "Bearer Auth":{
+            'type':"apiKey",
+            'in':'header',
+            'name':"Authorization",
+            'description':"Add a JWT with ** Bearer &lt;JWT&gt; to authorize"
+        }
+    }
+
     db.init_app(app)
     migrate=Migrate(app, db)
     jwt=JWTManager(app)
