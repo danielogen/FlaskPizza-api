@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..models.orders import Order
 from ..models.users import User
 from http import HTTPStatus
-from ..utils.db import db
+from ..utils import db
 
 order_namespace=Namespace('order', description='Namespace for orders')
 
@@ -55,7 +55,7 @@ class OrderGetCreate(Resource):
         data=order_namespace.payload
         new_order = Order(
             size=data['size'],
-            quantity=data['quantity']
+            quantity=data['quantity'],
             flavour = data['flavour']
         )
 
