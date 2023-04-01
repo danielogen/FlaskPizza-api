@@ -5,3 +5,4 @@ Flask-JWT-Extended
 Flask-Migrate
 Python-dotenv
 python-decouple
+pytest
