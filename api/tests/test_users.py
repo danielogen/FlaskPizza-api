@@ -46,4 +46,15 @@ class UserTestCase(unittest.TestCase):
 
 
         assert response.status_code == 201
+
+    
+    def test_login(self):
+
+        data={
+            "email":"testuser@gmail.com",
+            "password":"password"
+        }
+        response=self.client.post('/auth/login',json=data)
+
+        assert response.status_code == 400
     
