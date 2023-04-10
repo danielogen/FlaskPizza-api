@@ -11,6 +11,20 @@ The project demonstrate to use of [Flask](https://flask.palletsprojects.com/en/2
 - API documentation with SwaggerUI and Flask-RESTX
 - Unit testing 
 - Database Migration
+## Routes to Implement
+| Method | Route | Functionality |Access|
+| ------- | ----- | ------------- | ------------- |
+| *POST* | ```/auth/signup/``` | _Register new user_| _All users_|
+| *POST* | ```/auth/login/``` | _Login user_|_All users_|
+| *POST* | ```/orders/order/``` | _Place an order_|_All users_|
+| *PUT* | ```/orders/order/update/{order_id}/``` | _Update an order_|_All users_|
+| *PUT* | ```/orders/order/status/{order_id}/``` | _Update order status_|_Superuser_|
+| *DELETE* | ```/orders/order/delete/{order_id}/``` | _Delete/Remove an order_ |_All users_|
+| *GET* | ```/orders/user/orders/``` | _Get user's orders_|_All users_|
+| *GET* | ```/orders/orders/``` | _List all orders made_|_Superuser_|
+| *GET* | ```/orders/order/{order_id}/``` | _Retrieve an order_|_Superuser_|
+| *GET* | ```/orders/user/order/{order_id}/``` | _Get user's specific order_|
+| *GET* | ```/docs/``` | _View API documentation_|_All users_|
 
 ## Python Packages
 1. [Flask](https://flask.palletsprojects.com/en/2.2.x/)
